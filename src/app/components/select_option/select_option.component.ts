@@ -8,6 +8,8 @@ import {iCondition} from "../../interfaces/iCondition";
 
 export class SelectOption{
   @Input() condition!:iCondition
+  @Input() isFirst:boolean
+  @Input() conditionArrayLength:number
   @Output() deleteCondition=new EventEmitter()
   public dropCondition(){
     this.deleteCondition.emit()

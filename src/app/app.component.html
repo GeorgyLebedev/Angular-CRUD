@@ -1,11 +1,14 @@
+<error></error>
 <div class="flex flex-row justify-between overflow-hidden">
-  <section class="w-1/6">
-    <tables-bar></tables-bar>
+
+  <section class="tables-bar-container">
+    <app-login *ngIf="!isLoggedIn" (loggedIn)="isLoggedIn=true"></app-login>
+    <tables-bar *ngIf="isLoggedIn"></tables-bar>
   </section>
-  <section class="flex mt-[10%] overflow-x-auto max-w-full">
-    <table-content></table-content>
+  <section class="flex mt-[10%] ">
+    <table-content *ngIf="isLoggedIn"></table-content>
   </section>
-  <section class="w-1/4">
-    <select-options-bar></select-options-bar>
+  <section class="select-options-bar-container">
+    <select-options-bar *ngIf="isLoggedIn"></select-options-bar>
   </section>
 </div>

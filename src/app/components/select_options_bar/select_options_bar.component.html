@@ -1,7 +1,11 @@
 <aside class="flex flex-col ml-0 min-w-min bg-gray-200 h-screen  border-l border-gray-500">
   <h2 class="text-xl my-3 m-auto">Условия отбора</h2>
   <div class="mx-4">
-   <select-option *ngFor="let condition of conditionArray; index as i" [condition]="condition" (deleteCondition)="deleteCondition(i)"></select-option>
+   <select-option *ngFor="let condition of conditionArray; index as i"
+                  [condition]="condition" [isFirst]="i==0"
+                  [conditionArrayLength]="conditionArray.length"
+                  (deleteCondition)="deleteCondition(i)">
+   </select-option>
     <div class="group flex flex-row items-center text-gray-500  cursor-pointer" (click)="addNewCondition()" *ngIf="conditionArray.length<6">
       <svg class="fill-gray-500 w-9 group-hover:fill-teal-500 group-hover:scale-110 transition-all cursor-pointer" viewBox="0 0 32 32" version="1.1">
         <g id="Page-1" stroke-width="1" fill-rule="evenodd">

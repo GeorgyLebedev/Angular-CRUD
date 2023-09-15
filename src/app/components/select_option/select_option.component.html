@@ -1,7 +1,7 @@
-<div class="animate-appear">
+<div  [ngClass]="{'animate-appear':!isFirst}" >
 <hr class="bg-gray-400 border-none h-0.5">
 <div class="group">
-<svg (click)="dropCondition()" class="w-6 absolute mr-4 right-0 invisible stroke-gray-500 group-hover:visible cursor-pointer hover:scale-110 hover:stroke-teal-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg *ngIf="conditionArrayLength>1" (click)="dropCondition()" class="w-6 absolute mr-4 right-0 invisible stroke-gray-500 group-hover:visible cursor-pointer hover:scale-110 hover:stroke-teal-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M19 5L4.99998 19M5.00001 5L19 19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 <table class="my-2">

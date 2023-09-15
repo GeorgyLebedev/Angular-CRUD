@@ -1,9 +1,10 @@
-<aside class="flex flex-col ml-0 min-w-min bg-gray-200 h-screen items-center justify-between border-r border-gray-500">
+<aside class="flex flex-col ml-0 bg-gray-200 h-screen items-center justify-between border-r border-gray-500">
   <h1 class="text-6xl m-3 font-bold text-transparent bg-clip-text bg-gradient-to-br from-pink-400 bg-teal-600">FloYar</h1>
   <section class="flex flex-col items-center w-full">
     <button
       class="bg-teal-600 text-white w-9/12 p-2.5 m-1 rounded hover:bg-teal-500 hover:font-bold transition-all"
-      *ngFor="let table of tablesList">{{ table}}</button>
+      *ngFor="let table of tablesList"
+     (click)="selectTable(table)" [ngClass]="{'active-table': activeTable==table}">{{ Entities[table]}}</button>
   </section>
   <div class="flex items-center justify-between mb-4">
     <span title="Выход">
