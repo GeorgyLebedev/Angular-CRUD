@@ -1,0 +1,8 @@
+телефоны - tel
+email - email
+boolean - чекбоксы
+внешние ключи, перечисления - select
+большие поля - textarea
+фото - file
+цена, колво - number
+code, data - заблокированные поля

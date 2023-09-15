@@ -1,0 +1,23 @@
+<aside class="flex flex-col ml-0 min-w-min bg-gray-200 h-screen items-center justify-center border-r border-gray-500">
+  <form action="" [formGroup]="form" class="flex flex-col items-center text-xl" (ngSubmit)="submit()">
+    <fieldset class="flex flex-col mb-2 items-center">
+      Введите логин:
+      <input type="text" class="px-2 py-1 focus:outline-none rounded border-solid border border-gray-400 mt-2"
+             [ngClass]="{'border-rose-600': (form.controls['login'].invalid && form.controls['login'].touched) }" formControlName="login" name="login" placeholder="Логин">
+      <small class="animate-appear text-rose-600 text-sm self-start"
+             *ngIf="form.controls['login'].invalid && form.controls['login'].touched">Логин - не менее 6 символов</small>
+    </fieldset>
+    <fieldset class="flex flex-col mb-4 items-center">
+      Введите пароль:
+      <input type="password" class="px-2 py-1 focus:outline-none rounded border-solid border border-gray-400 mt-2"
+             [ngClass]="{'border-rose-600': (form.controls['password'].invalid && form.controls['password'].touched) }"
+             formControlName="password" name="password" placeholder="Пароль">
+      <small class="animate-appear text-rose-600 text-sm self-start"
+             *ngIf="form.controls['password'].invalid && form.controls['password'].touched">Пароль - не менее 8 символов</small>
+    </fieldset>
+    <button type="submit"
+            class="bg-teal-600 text-white w-9/12 p-2.5 m-1 rounded hover:bg-teal-500 hover:font-bold transition-all" (click)="enter()">Войти
+    </button>
+
+  </form>
+</aside>
