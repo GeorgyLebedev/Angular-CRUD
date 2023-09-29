@@ -3,10 +3,11 @@ import {HttpService} from "../../services/http.service";
 import {MainState} from "../../store/main_state";
 import {Branch} from "../../../server/src/db/branch/entities/branch.entity";
 import {Employee} from "../../../server/src/db/employee/entities/employee.entity";
+
 @Component({
   selector: "table-content",
   templateUrl: "./table.component.html",
-  styleUrls:['./table.component.sass'],
+  styleUrls: ['./table.component.sass'],
 })
 
 export class TableComponent implements OnInit {
@@ -14,56 +15,82 @@ export class TableComponent implements OnInit {
   }
 
   protected readonly Object = Object;
-  newRow: boolean = false
-  entity: any = {}
-  tableData: Array<Branch|Employee>
+  tableData: Array<Branch | Employee>
   columns: string[]
-  deleteOptions:{ deleteInProcess: boolean, rowId: number|null} = {
+  deleteOptions: { deleteInProcess: boolean, rowId: number | null } = {
     deleteInProcess: false,
-    rowId:null
+    rowId: null
   }
-  editOptions:{ editInProcess:false, rowId:number|null }={
+  editOptions: { editInProcess: boolean, rowId: number | null, modifiedData:any } = {
     editInProcess: false,
-    rowId:null
+    rowId: null,
+    modifiedData:{}
+  }
+  newRowOptions:{addInProcess:boolean,rowData: any}={
+    addInProcess:false,
+    rowData:{}
   }
 
   async addRow() {
-    if(await this.HttpService.addNew(this.entity))
-    this.newRow = false
+    if (await this.HttpService.addNew(this.newRowOptions.rowData))
+      this.cancelAdding()
   }
-  confirmDelete(id:number){
-    this.deleteOptions.deleteInProcess=true
-    this.deleteOptions.rowId=id
+
+  confirmDelete(id: number) {
+    this.deleteOptions.deleteInProcess = true
+    this.deleteOptions.rowId = id
   }
-  cancelDelete(){
-    this.deleteOptions= {
+
+
+  async deleteRow() {
+    if (this.deleteOptions.rowId)
+      await this.HttpService.delete(this.deleteOptions.rowId)
+    this.cancelDelete()
+  }
+  async saveModifiedRow(){
+      if(this.editOptions.rowId && this.editOptions.modifiedData)
+        await this.HttpService.editRow(this.editOptions.rowId, this.editOptions.modifiedData)
+    this.cancelEdit()
+  }
+  cancelAdding(){
+    this.newRowOptions.addInProcess=false
+    this.newRowOptions.rowData={}
+  }
+  cancelDelete() {
+    this.deleteOptions = {
       deleteInProcess: false,
+      rowId: null
+    }
+  }
+  cancelEdit(){
+    this.editOptions={
+      editInProcess:false,
+      modifiedData:null,
       rowId:null
     }
   }
- async deleteRow() {
-   if(this.deleteOptions.rowId)
-   await this.HttpService.delete(this.deleteOptions.rowId)
-   this.cancelDelete()
+  editRow(row:any){
+    this.editOptions={
+      editInProcess:true,
+      rowId:row.code,
+      modifiedData:row
+    }
   }
-
-  getInputType(column: string): string {
-    if (column.includes('phone')) return 'tel'
-    else if (column.includes('email')) return 'email'
-    else if (column.startsWith('is') && column.charAt(2) === column.charAt(2).toUpperCase()) return 'checkbox'
-    else if (column.includes('photo')) return 'file'
-    else if (column.includes('price') || column.includes('quantity')) return 'number'
-    else return 'text'
-  }
-
-  isDisabledColumn(column: string): boolean {
-    return column === 'code' || column.toLowerCase().includes('date');
-  }
-
   checkTableEmpty(): boolean {
     return (this.tableData.length == 1 && Object.values(this.tableData[0]).every(element => element === ''))
   }
 
+  updateNewRow(value: any) {
+    this.newRowOptions.rowData = Object.assign(this.newRowOptions.rowData, value)
+  }
+  updateEditData(value: any) {
+    this.editOptions.modifiedData = Object.assign(this.editOptions.modifiedData, value)
+  }
+  isImg(value:any){
+    if(typeof value=='string' && value.startsWith('data:image/'))
+      return value
+    else return false
+  }
   ngOnInit() {
     this.MainState.getTableData().subscribe((value) => {
       if (!value) return

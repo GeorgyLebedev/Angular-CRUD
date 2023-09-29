@@ -9,8 +9,13 @@ import {SelectOptionsBar} from "./components/select_options_bar/select_options_b
 import {SelectOption} from "./components/select_option/select_option.component";
 import { LoginComponent } from './components/login/login.component';
 import {HttpClientModule} from "@angular/common/http";
-import {CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import { ErrorComponent } from './components/error/error.component';
+import { InputComponent } from './components/table/input/input.component';
+import {ViewComponent} from "./components/table/view_component/view.component";
+import {CreateRowComponent} from "./components/table/create_row_component/create.row.component";
+import {DeleteRowComponent} from "./components/table/delete_row_component/delete.row.component";
+import {EditRowComponent} from "./components/table/update_row_component/edit.row.component";
 
 @NgModule({
   declarations: [
@@ -20,7 +25,12 @@ import { ErrorComponent } from './components/error/error.component';
     SelectOptionsBar,
     SelectOption,
     LoginComponent,
-    ErrorComponent
+    ErrorComponent,
+    InputComponent,
+    ViewComponent,
+    CreateRowComponent,
+    DeleteRowComponent,
+    EditRowComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +38,8 @@ import { ErrorComponent } from './components/error/error.component';
     FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgOptimizedImage
   ],
   providers: [],
   bootstrap: [AppComponent]

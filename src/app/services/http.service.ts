@@ -23,14 +23,15 @@ export class HttpService {
     try {
       let data = await firstValueFrom(this.http.get(this.BASE_URL + this.entity))
       this.MainState.setTableData(data)
+      console.log(data)
     } catch (e: any) {
       this.MainState.setError(e)
     }
   }
 
-  async addNew(data: any) {
+  async addNew(dataObject:any) {
     try {
-      let result = await firstValueFrom(this.http.post(this.BASE_URL + this.entity, data))
+      let result = await firstValueFrom(this.http.post(this.BASE_URL + this.entity, dataObject))
       await this.getAll()
       return result
     } catch (e: any) {
@@ -39,6 +40,17 @@ export class HttpService {
     }
   }
 
+  async editRow(id:number, dataObject:any){
+    try {
+      let result=await firstValueFrom(this.http.patch(this.BASE_URL+this.entity+`/${id}`, dataObject))
+      await this.getAll()
+      return result
+    }
+    catch (e:any) {
+      this.MainState.setError(e)
+      return false
+    }
+  }
   async delete(id:number){
     try {
       let result=await firstValueFrom(this.http.delete(this.BASE_URL+this.entity+`/${id}`))

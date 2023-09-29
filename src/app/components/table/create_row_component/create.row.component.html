@@ -1,0 +1,11 @@
+<tr>
+  <td></td>
+  <td class="border" *ngFor="let col of columns">
+    <input-cell [column]="col" [value]="newRowData" (inputUpdate)="updateNewRow($event)"/>
+  </td>
+  <td></td>
+</tr>
+<section class="flex absolute left-0 right-0 w-full ml-auto mr-auto">
+  <button class="bg-teal-600 text-white p-2 m-3 rounded hover:bg-teal-500 transition-all" (click)="addRow()">Сохранить</button>
+  <button class="bg-red-600 text-white p-2 m-3 rounded hover:bg-red-500 transition-all" (click)="cancel()" >Отмена</button>
+</section>

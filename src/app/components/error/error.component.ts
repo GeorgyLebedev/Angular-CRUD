@@ -36,7 +36,12 @@ export class ErrorComponent implements OnInit{
   }
   ngOnInit(): void {
     this.MainState.getError().subscribe((value)=>{
-      this.message = value?(value as HttpErrorResponse).error.text:undefined
+      if(!value) {
+        this.message = undefined
+        return
+      }
+      const errorData=value?(value as HttpErrorResponse).error:undefined
+        this.message=(errorData && errorData.text)?errorData.text:errorData.message[0]
       if(this.message) setTimeout(_=> this.clear(), 10000)
     })
   }

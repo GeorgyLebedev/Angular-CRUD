@@ -5,8 +5,8 @@
     <app-login *ngIf="!isLoggedIn" (loggedIn)="isLoggedIn=true"></app-login>
     <tables-bar *ngIf="isLoggedIn"></tables-bar>
   </section>
-  <section class="flex mt-[10%] ">
-    <table-content *ngIf="isLoggedIn"></table-content>
+  <section class="flex mx-4 mt-4 ">
+    <table-view *ngIf="isLoggedIn"></table-view>
   </section>
   <section class="select-options-bar-container">
     <select-options-bar *ngIf="isLoggedIn"></select-options-bar>
