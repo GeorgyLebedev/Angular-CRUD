@@ -7,11 +7,11 @@
 <table class="my-2">
   <tr>
     <td class="pr-2">
-      Столбец:
+      Поле:
     </td>
     <td>
       <select class="w-full">
-        <option value="Столбец 1" >Столбец 1</option>
+        <option value="Столбец 1">Столбец 1</option>
         <option value="Столбец 2">Столбец 2</option>
         <option value="Столбец 3">Столбец 3</option>
         <option value="Столбец 4">Столбец 4</option>
@@ -26,13 +26,23 @@
     </td>
     <td>
       <select class="w-full">
-        <option value="=">Равно (=)</option>
-        <option value="<>">Не равно (<>)</option>
-        <option value=">">Больше (>)</option>
-        <option value=">=">Больше или равно (>=)</option>
-        <option value="<">Меньше (<)</option>
-        <option value="<=">Меньше или равно (<=)</option>
+        <option value="equal">Равно (=)</option>
+        <option value="notEqual">Не равно (<>)</option>
+        <option value="more">Больше (>)</option>
+        <option value="moreEqual">Больше или равно (>=)</option>
+        <option value="less">Меньше (<)</option>
+        <option value="lessEqual">Меньше или равно (<=)</option>
+        <option value="in">Входит в</option>
+        <option value="between">Между (знач1, знач2)</option>
+        <option value="like">Соответствует паттерну</option>
+        <option value="isNotEmpty">Не пусто</option>
       </select>
+    </td>
+    <td>
+      <div class="flex-row flex items-center gap-2 mx-2">
+      Инверсия:
+      <input type="checkbox" class="w-4 h-4">
+      </div>
     </td>
   </tr>
   <tr>
@@ -45,4 +55,4 @@
   </tr>
 </table>
 </div>
-
+</div>

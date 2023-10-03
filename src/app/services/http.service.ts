@@ -13,8 +13,8 @@ export class HttpService {
 
   constructor(private http: HttpClient, private MainState: MainState) {
     this.BASE_URL = "http://localhost:3000/"
-    this.MainState.getCurrentEntity().subscribe(async value=>{
-      this.entity=value
+    this.MainState.getCurrentEntity().subscribe(async value => {
+      this.entity = value
       await this.getAll()
     })
   }
@@ -29,7 +29,17 @@ export class HttpService {
     }
   }
 
-  async addNew(dataObject:any) {
+  async getTableData(entity: string) {
+    let data
+    try {
+      data = await firstValueFrom(this.http.get(this.BASE_URL + entity))
+    } catch (e: any) {
+      this.MainState.setError(e)
+    }
+    return data
+  }
+
+  async addNew(dataObject: any) {
     try {
       let result = await firstValueFrom(this.http.post(this.BASE_URL + this.entity, dataObject))
       await this.getAll()
@@ -40,24 +50,23 @@ export class HttpService {
     }
   }
 
-  async editRow(id:number, dataObject:any){
+  async editRow(id: number, dataObject: any) {
     try {
-      let result=await firstValueFrom(this.http.patch(this.BASE_URL+this.entity+`/${id}`, dataObject))
+      let result = await firstValueFrom(this.http.patch(this.BASE_URL + this.entity + `/${id}`, dataObject))
       await this.getAll()
       return result
-    }
-    catch (e:any) {
+    } catch (e: any) {
       this.MainState.setError(e)
       return false
     }
   }
-  async delete(id:number){
+
+  async delete(id: number) {
     try {
-      let result=await firstValueFrom(this.http.delete(this.BASE_URL+this.entity+`/${id}`))
+      let result = await firstValueFrom(this.http.delete(this.BASE_URL + this.entity + `/${id}`))
       await this.getAll()
       return result
-    }
-    catch (e: any) {
+    } catch (e: any) {
       this.MainState.setError(e)
       return false
     }

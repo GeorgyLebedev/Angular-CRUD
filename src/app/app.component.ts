@@ -1,16 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpService} from "./services/http.service";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent implements OnInit{
+export class AppComponent{
   title = 'text';
   isLoggedIn:boolean=true
-  ngOnInit(): void {
-    console.log('init')
-  }
-
 }

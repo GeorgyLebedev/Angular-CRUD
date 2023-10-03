@@ -4,7 +4,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { AppComponent } from './app.component';
 import {TablesBarComponent} from "./components/tables_bar/tables_bar.component";
-import {TableComponent} from "./components/table/table.component";
 import {SelectOptionsBar} from "./components/select_options_bar/select_options_bar.component";
 import {SelectOption} from "./components/select_option/select_option.component";
 import { LoginComponent } from './components/login/login.component';
@@ -16,12 +15,12 @@ import {ViewComponent} from "./components/table/view_component/view.component";
 import {CreateRowComponent} from "./components/table/create_row_component/create.row.component";
 import {DeleteRowComponent} from "./components/table/delete_row_component/delete.row.component";
 import {EditRowComponent} from "./components/table/update_row_component/edit.row.component";
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
     AppComponent,
     TablesBarComponent,
-    TableComponent,
     SelectOptionsBar,
     SelectOption,
     LoginComponent,
@@ -39,7 +38,8 @@ import {EditRowComponent} from "./components/table/update_row_component/edit.row
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    StoreModule.forRoot({}, {})
   ],
   providers: [],
   bootstrap: [AppComponent]

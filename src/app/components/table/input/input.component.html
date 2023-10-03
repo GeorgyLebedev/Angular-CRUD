@@ -1,14 +1,15 @@
+<fieldset *ngIf="!isHiddenColumn(column)" class="grid grid-cols-2 items-center ">
+  {{column}}:
 <input
   *ngIf="elementType==='input'"
   [(ngModel)]="value[column]"
   [type]="getInputType(column)"
-  [placeholder]="isDisabledColumn(column)?'':column"
-  [disabled]="isDisabledColumn(column)"
+  [placeholder]="isHiddenColumn(column)?'':column"
   (focusout)="updateEntity()"
-  class="p-1 " autocomplete="off" >
-<select *ngIf="elementType==='select'" [(ngModel)]="value[column]" (focusout)="updateEntity()">
+  class="p-1 border" autocomplete="off" >
+<select *ngIf="elementType==='select'" [(ngModel)]="value[column]" (focusout)="updateEntity()" class="p-1">
   <option value="undefined">-Не выбрано-</option>
-  <option *ngFor="let option of selectList">{{option}}</option>
+  <option *ngFor="let option of selectList, let i=index" [value]="adjacentData?adjacentData[i].code:option">{{option}}</option>
 </select>
 <div *ngIf="elementType=='file'" class="flex justify-center items-center">
   <svg width="800px" height="800px" class="stroke-black cursor-pointer w-6 h-6 hover:scale-125 bg-opacity-50" title="Загрузить фото" (click)="openExplorer()" [ngClass]="{'bg-white':imgSrc}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,3 +18,4 @@
   <input #fileInput type="file" accept="image/png, image/jpeg" hidden="hidden" (change)="loadPhoto($event)">
   <img [src]="imgSrc">
 </div>
+</fieldset>

@@ -2,5 +2,8 @@ td {
   max-width: 150px;
   word-wrap: break-word;
 }
+td > img {
+  min-width: 100%;
+}
 
 /*# sourceMappingURL=view.component.css.map */

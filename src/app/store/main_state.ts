@@ -7,7 +7,7 @@ import {Injectable} from "@angular/core";
 export class MainState {
   private isLoggedIn$=new BehaviorSubject<boolean>(false)
   private currentEntity$ = new Subject<string>()
-  private tableData$ = new BehaviorSubject<any>(undefined)
+  private tableData$ = new Subject<any>()
   private error$=new BehaviorSubject<Error|undefined>(undefined)
   setTableData(value: any): void {
     this.tableData$.next(value);

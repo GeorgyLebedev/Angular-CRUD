@@ -35,6 +35,19 @@ export class ViewComponent implements OnInit{
     this.editRowData=row
     this.editRow=true
   }
+
+  cancelAdding(){
+    this.addRow=false
+  }
+  cancelDelete(){
+    this.deleteRowId=-1
+    this.deleteRow=false
+  }
+
+  cancelEdit(){
+    this.editRow=false
+    this.editRowData= {}
+  }
   ngOnInit() {
     this.MainState.getTableData().subscribe((value) => {
       if (!value) return
