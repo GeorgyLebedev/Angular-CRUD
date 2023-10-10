@@ -10,13 +10,8 @@
       Поле:
     </td>
     <td>
-      <select class="w-full">
-        <option value="Столбец 1">Столбец 1</option>
-        <option value="Столбец 2">Столбец 2</option>
-        <option value="Столбец 3">Столбец 3</option>
-        <option value="Столбец 4">Столбец 4</option>
-        <option value="Столбец 5">Столбец 5</option>
-        <option value="Столбец 6">Столбец 6</option>
+      <select class="w-full" [(ngModel)]="params.column">
+        <option *ngFor="let col of columns">{{col}}</option>
       </select>
     </td>
   </tr>
@@ -25,9 +20,8 @@
       Условие:
     </td>
     <td>
-      <select class="w-full">
+      <select class="w-full" [(ngModel)]="params.condition">
         <option value="equal">Равно (=)</option>
-        <option value="notEqual">Не равно (<>)</option>
         <option value="more">Больше (>)</option>
         <option value="moreEqual">Больше или равно (>=)</option>
         <option value="less">Меньше (<)</option>
@@ -41,16 +35,32 @@
     <td>
       <div class="flex-row flex items-center gap-2 mx-2">
       Инверсия:
-      <input type="checkbox" class="w-4 h-4">
+      <input type="checkbox" class="w-4 h-4" [(ngModel)]="params.inverse">
       </div>
     </td>
   </tr>
-  <tr>
+  <tr *ngIf="params.condition!='between'">
     <td class="pr-2">
       Значение:
     </td>
     <td>
-      <input type="text" class="w-full px-1" name="" id="">
+      <input type="text" class="w-full px-1" [(ngModel)]="params.value">
+    </td>
+  </tr>
+  <tr *ngIf="params.condition=='between'">
+    <td class="pr-2">
+      Значение 1:
+    </td>
+    <td>
+      <input type="text" class="w-full px-1" [(ngModel)]="params.value[0]">
+    </td>
+  </tr>
+  <tr *ngIf="params.condition=='between'">
+    <td class="pr-2">
+      Значение 2:
+    </td>
+    <td>
+      <input type="text" class="w-full px-1" [(ngModel)]="params.value[1]">
     </td>
   </tr>
 </table>

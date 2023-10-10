@@ -17,7 +17,7 @@ export class ViewComponent implements OnInit{
   editRow: boolean=false
   editRowData:any={}
   checkTableEmpty(): boolean {
-    return (this.tableData.length == 1 && Object.values(this.tableData[0]).every(element => element === ''))
+    return typeof this.tableData[0] != "object"
   }
   isImg(value:any){
     if(typeof value=='string' && value.startsWith('data:image/'))
@@ -52,7 +52,7 @@ export class ViewComponent implements OnInit{
     this.MainState.getTableData().subscribe((value) => {
       if (!value) return
       this.tableData = value
-      this.columns = Object.keys(this.tableData[0])
+      this.columns = typeof this.tableData[0] == "object"?Object.keys(this.tableData[0]):this.tableData
       this.addRow=this.editRow=this.deleteRow=false
     })
   }

@@ -2,7 +2,8 @@
   <h2 class="text-xl my-3 m-auto">Условия отбора</h2>
   <div class="mx-4">
    <select-option *ngFor="let condition of conditionArray; index as i"
-                  [condition]="condition" [isFirst]="i==0"
+                  [columns]="columns"
+                  [isFirst]="i==0"
                   [conditionArrayLength]="conditionArray.length"
                   (deleteCondition)="deleteCondition(i)">
    </select-option>

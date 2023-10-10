@@ -7,10 +7,16 @@ import {iCondition} from "../../interfaces/iCondition";
 })
 
 export class SelectOption{
-  @Input() condition!:iCondition
+  @Input() columns: Array<string>
   @Input() isFirst:boolean
   @Input() conditionArrayLength:number
   @Output() deleteCondition=new EventEmitter()
+  params:iCondition={
+    column: '',
+    condition:'',
+    inverse:false,
+    value:''
+  }
   public dropCondition(){
     this.deleteCondition.emit()
   }
