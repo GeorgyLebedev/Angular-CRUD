@@ -9,6 +9,7 @@ export class MainState {
   private currentEntity$ = new Subject<string>()
   private tableData$ = new Subject<any>()
   private error$=new BehaviorSubject<Error|undefined>(undefined)
+  private token$=new Subject<string>()
   setTableData(value: any): void {
     this.tableData$.next(value);
   }
