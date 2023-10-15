@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http"
 import {firstValueFrom} from "rxjs";
-import {MainState} from "../store/main_state";
+import {MainState} from "../store/main.state";
+import {iCondition} from "../interfaces/iCondition";
 
 @Injectable({
   providedIn: 'root'
@@ -19,26 +20,40 @@ export class HttpService {
     })
   }
 
-  async getAll() {
+  async getAll(entity?:any) {
+    let data
     try {
-      let data = await firstValueFrom(this.http.get(this.BASE_URL + this.entity))
+      if(entity){
+        data = await firstValueFrom(this.http.get(this.BASE_URL + entity))
+        return data
+      }
+       data = await firstValueFrom(this.http.get(this.BASE_URL + this.entity))
       this.MainState.setTableData(data)
       console.log(data)
     } catch (e: any) {
       this.MainState.setError(e)
     }
+    return
   }
 
-  async getTableData(entity: string) {
+  async getAllWithCondition(params:any){
+    let link=this.BASE_URL+this.entity+'?'
     let data
-    try {
-      data = await firstValueFrom(this.http.get(this.BASE_URL + entity))
-    } catch (e: any) {
+    try{
+      console.log(params)
+      for (let param in params) {
+        link +=`${param}=${params[param]}&`
+      }
+      console.log(link)
+      data = await firstValueFrom(this.http.get(link))
+      console.log(data)
+      this.MainState.setTableData(data)
+
+    }
+    catch (e:any){
       this.MainState.setError(e)
     }
-    return data
   }
-
   async addNew(dataObject: any) {
     try {
       let result = await firstValueFrom(this.http.post(this.BASE_URL + this.entity, dataObject))

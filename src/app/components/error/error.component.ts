@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MainState} from "../../store/main_state";
+import {MainState} from "../../store/main.state";
 import {HttpErrorResponse} from "@angular/common/http";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 @Component({

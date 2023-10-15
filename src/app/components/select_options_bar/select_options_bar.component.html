@@ -3,11 +3,11 @@
   <div class="mx-4">
    <select-option *ngFor="let condition of conditionArray; index as i"
                   [columns]="columns"
-                  [isFirst]="i==0"
-                  [conditionArrayLength]="conditionArray.length"
-                  (deleteCondition)="deleteCondition(i)">
+                  [params]="conditionArray[i]"
+                  (deleteCondition)="deleteCondition(i)"
+                  (updateCondition)="updateCondition($event, i)">
    </select-option>
-    <div class="group flex flex-row items-center text-gray-500  cursor-pointer" (click)="addNewCondition()" *ngIf="conditionArray.length<6">
+    <div class="group flex flex-row items-center text-gray-500  cursor-pointer" (click)="addNewCondition()" *ngIf="conditionArray.length<5">
       <svg class="fill-gray-500 w-9 group-hover:fill-teal-500 group-hover:scale-110 transition-all cursor-pointer" viewBox="0 0 32 32" version="1.1">
         <g id="Page-1" stroke-width="1" fill-rule="evenodd">
           <g id="Icon-Set" transform="translate(-100.000000, -1035.000000)">
@@ -18,7 +18,10 @@
       <span class="text-xl ml-2 group-hover:text-teal-500" >Добавить условие</span>
     </div>
     <div class="flex flex-col items-center">
-    <button class="bg-teal-600 text-white px-4 py-1 w-32 rounded my-2 hover:bg-teal-500 hover:scale-110 transition-all ">Найти</button>
+    <button class="bg-teal-600 text-white px-4 py-1 w-32 rounded my-2 enabled:hover:bg-teal-500 enabled:hover:font-bold enabled:hover:cursor-pointer transition-all disabled:opacity-50"
+            [disabled]="!isConditionCorrect()"
+            (click)="getDataWithCondition(conditionArray[0])">
+      Найти</button>
     </div>
   </div>
 </aside>

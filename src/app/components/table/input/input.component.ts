@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {MainState} from "../../../store/main_state";
+import {MainState} from "../../../store/main.state";
 import {HttpService} from "../../../services/http.service";
 
 @Component({
@@ -23,7 +23,7 @@ export class InputComponent implements OnInit {
   async getElementType() {
     const pattern = /^[a-zA-Z]*Code$/;
     if (pattern.test(this.column)) {
-      this.adjacentData = await this.HttpService.getTableData(this.getAdjacentTableName())
+      this.adjacentData = await this.HttpService.getAll(this.getAdjacentTableName())
       if ((this.adjacentData.length == 1 && Object.values(this.adjacentData[0]).every(element => element === ''))) {
         this.MainState.setError(new Error(`Данные не могут быть добавлены, так как смежная таблица ${this.getAdjacentTableName()} пуста!`))
         return

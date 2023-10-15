@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, DoCheck, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {iCondition} from "../../interfaces/iCondition";
 @Component({
   selector: 'select-option',
@@ -10,13 +10,9 @@ export class SelectOption{
   @Input() columns: Array<string>
   @Input() isFirst:boolean
   @Input() conditionArrayLength:number
+  @Input() params:iCondition
   @Output() deleteCondition=new EventEmitter()
-  params:iCondition={
-    column: '',
-    condition:'',
-    inverse:false,
-    value:''
-  }
+  @Output() updateCondition=new EventEmitter()
   public dropCondition(){
     this.deleteCondition.emit()
   }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {HttpService} from "../../../services/http.service";
-import {MainState} from "../../../store/main_state";
+import {MainState} from "../../../store/main.state";
 @Component({
   selector: "table-view",
   templateUrl: "./view.component.html",
