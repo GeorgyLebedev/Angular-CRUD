@@ -32,7 +32,7 @@ export class ViewComponent implements OnInit{
     this.deleteRow=true
   }
   setEditOptions(row:any){
-    this.editRowData=row
+    this.editRowData={...row}
     this.editRow=true
   }
 

@@ -41,7 +41,7 @@ export class ErrorComponent implements OnInit{
         return
       }
       if((value as HttpErrorResponse).error){
-        this.message=(value as HttpErrorResponse).error.text?(value as HttpErrorResponse).error.text:(value as HttpErrorResponse).error.message[0]
+        this.message=(value as HttpErrorResponse).error.text?(value as HttpErrorResponse).error.text:(value as HttpErrorResponse).error.message
       }
       else if(value.message){
         this.message=value

@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {Entities} from "../../reusables/entities";
 import {HttpService} from "../../services/http.service";
 import {MainState} from "../../store/main.state";
-import {firstValueFrom} from "rxjs";
 @Component({
   selector:"tables-bar",
   templateUrl:"./tables_bar.component.html",

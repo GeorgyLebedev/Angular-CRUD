@@ -1,13 +1,11 @@
 <error></error>
 <div class="flex flex-row overflow-hidden relative max-w-[100vw] max-h-[100vh]">
-  <section class="w-[15%]">
+  <section class="min-w[20%] w-[20%]">
     <app-login *ngIf="!isLoggedIn" (loggedIn)="isLoggedIn=true"></app-login>
     <tables-bar *ngIf="isLoggedIn"></tables-bar>
   </section>
-  <section class="flex overflow-auto w-[60%] justify-center">
+  <section class="flex overflow-auto w-[100%] justify-center">
     <table-view *ngIf="isLoggedIn"></table-view>
   </section>
-  <section class="w-[25%]">
-    <select-options-bar *ngIf="isLoggedIn"></select-options-bar>
-  </section>
+  <select-condition *ngIf="selectedTable"></select-condition>
 </div>

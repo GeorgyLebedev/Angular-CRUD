@@ -1,0 +1,13 @@
+<section class="fixed top-0 right-0 rounded-bl-md transition-all duration-500 p-1 border-l-2 border-b-2 "
+         [ngClass]="{'bg-gray-200 border-teal-600':showSettings,'bg-teal-600 border-transparent hover:bg-teal-500':!showSettings}">
+  <button class="flex-row flex items-center cursor-pointer text-lg p-1  hover:font-bold transition-all"
+          (click)="showSettings=!showSettings"
+          [ngClass]="{'text-white':!showSettings,'text-teal-600':showSettings}" >
+  <svg  viewBox="0 0 24 24" class="stroke-white fill-none w-8 h-8" xmlns="http://www.w3.org/2000/svg"
+        [ngClass]="{'rotate-180':showSettings,'stroke-white':!showSettings,'stroke-teal-600':showSettings}">
+    <path d="M11 19L4.70711 12.7071C4.31658 12.3166 4.31658 11.6834 4.70711 11.2929L11 5 M19 19L12.7071 12.7071C12.3166 12.3166 12.3166 11.6834 12.7071 11.2929L19 5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  Отбор по условию
+  </button>
+  <condition-settings  *ngIf="showSettings"></condition-settings>
+</section>

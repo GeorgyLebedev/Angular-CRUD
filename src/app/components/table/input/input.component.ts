@@ -24,14 +24,14 @@ export class InputComponent implements OnInit {
     const pattern = /^[a-zA-Z]*Code$/;
     if (pattern.test(this.column)) {
       this.adjacentData = await this.HttpService.getAll(this.getAdjacentTableName())
-      if ((this.adjacentData.length == 1 && Object.values(this.adjacentData[0]).every(element => element === ''))) {
+      console.log(this.adjacentData)
+      if (this.adjacentData.every((element:Object|string)=> typeof element==='string')) {
         this.MainState.setError(new Error(`Данные не могут быть добавлены, так как смежная таблица ${this.getAdjacentTableName()} пуста!`))
         return
       }
       this.selectList = []
       this.adjacentData.forEach((el: Object) => {
         let stringValue = Object.values(el).join(', ')
-        console.log(stringValue)
         this.selectList.push(
           stringValue.length > 100 ?
             stringValue.substring(0, 100) + '...' :
@@ -63,11 +63,12 @@ export class InputComponent implements OnInit {
     else if (column.startsWith('is') && column.charAt(2) === column.charAt(2).toUpperCase()) return 'checkbox'
     else if (column.includes('photo')) return 'file'
     else if (column.includes('price') || column.includes('quantity')) return 'number'
+      else if(column.toLowerCase().includes('date')) return 'date'
     else return 'text'
   }
 
   isHiddenColumn(column: string): boolean {
-    return column === 'code' || column.toLowerCase().includes('date');
+    return column === 'code'
   }
 
   openExplorer() {
@@ -91,7 +92,9 @@ export class InputComponent implements OnInit {
   }
 
   updateEntity() {
-    this.inputUpdate.emit(this.value)
+    if(Number(this.value[this.column]))
+      this.value[this.column]=Number(this.value[this.column])
+    this.inputUpdate.emit(this.value[this.column])
   }
 
   async ngOnInit() {

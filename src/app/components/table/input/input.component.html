@@ -5,9 +5,9 @@
   [(ngModel)]="value[column]"
   [type]="getInputType(column)"
   [placeholder]="isHiddenColumn(column)?'':column"
-  (focusout)="updateEntity()"
+  (ngModelChange)="updateEntity()"
   class="p-1 border" autocomplete="off" >
-<select *ngIf="elementType==='select'" [(ngModel)]="value[column]" (focusout)="updateEntity()" class="p-1">
+<select *ngIf="elementType==='select'" [(ngModel)]="value[column]" (ngModelChange)="updateEntity()" class="p-1">
   <option value="undefined">-Не выбрано-</option>
   <option *ngFor="let option of selectList, let i=index" [value]="adjacentData?adjacentData[i].code:option">{{option}}</option>
 </select>

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http"
 import {firstValueFrom} from "rxjs";
 import {MainState} from "../store/main.state";
 import {iCondition} from "../interfaces/iCondition";
+import {IUserData} from "../interfaces/iUserData";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,16 @@ export class HttpService {
     })
   }
 
+  async authenticate(userData:{login:string, password:string}){
+    let res:IUserData={code:"", login:"", token:""}
+    try {
+      res=await firstValueFrom(this.http.post(this.BASE_URL+'auth/login', userData)) as IUserData
+    }
+    catch (e:any){
+      this.MainState.setError(e)
+    }
+    return res
+  }
   async getAll(entity?:any) {
     let data
     try {
