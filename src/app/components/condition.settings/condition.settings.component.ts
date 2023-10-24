@@ -12,6 +12,7 @@ export class ConditionSettings implements OnInit{
   constructor(private HttpService:HttpService, private MainState:MainState) {
   }
   columns: Array<string|undefined>
+  isDataFiltered:boolean=false
   params:iCondition={
     column: '',
     condition:'',
@@ -19,15 +20,29 @@ export class ConditionSettings implements OnInit{
     value:'',
     valueArray:[]
   }
-  async getDataWithCondition(params:iCondition){
+  async getDataWithCondition(params:iCondition):Promise<void>{
     await this.HttpService.getAllWithCondition(params)
+    this.isDataFiltered=true
   }
-  isConditionCorrect(){
-    let isCorrect=false
-    if(this.params.column.length && this.params.condition.length && ((this.params.valueArray[0] && this.params.valueArray[1])||this.params.value.length)) {
-      isCorrect = true
+  isConditionCorrect():boolean{
+    if(this.params.condition=='isEmpty' && this.params.column.length)
+      return true
+    return !!(this.params.column.length && this.params.condition.length && ((this.params.valueArray[0] && this.params.valueArray[1]) || this.params.value.length));
+  }
+  async resetFilter(): Promise<void>{
+    this.resetParams()
+    if(this.isDataFiltered)
+      await this.HttpService.getAll()
+    this.isDataFiltered=false
+  }
+  resetParams():void{
+    this.params={
+      column: '',
+      condition:'',
+      inverse:false,
+      value:'',
+      valueArray:[]
     }
-    return isCorrect
   }
   ngOnInit() {
     this.MainState.getTableData().subscribe((value) => {
@@ -35,13 +50,7 @@ export class ConditionSettings implements OnInit{
       this.columns=Object.keys(value[0])
     })
     this.MainState.getCurrentEntity().subscribe(()=>{
-      this.params={
-        column: '',
-        condition:'',
-        inverse:false,
-        value:'',
-        valueArray:[]
-      }
+      this.resetParams()
     })
   }
 }

@@ -17,7 +17,6 @@ export class InputComponent implements OnInit {
   elementType: string
   selectList: string[]
   adjacentData: any
-  imgSrc: string | undefined
   @ViewChild('fileInput', {static: false}) fileInput: ElementRef;
 
   async getElementType() {
@@ -63,7 +62,7 @@ export class InputComponent implements OnInit {
     else if (column.startsWith('is') && column.charAt(2) === column.charAt(2).toUpperCase()) return 'checkbox'
     else if (column.includes('photo')) return 'file'
     else if (column.includes('price') || column.includes('quantity')) return 'number'
-      else if(column.toLowerCase().includes('date')) return 'date'
+      else if(column.toLowerCase().includes('date')) return 'datetime-local'
     else return 'text'
   }
 
@@ -81,20 +80,20 @@ export class InputComponent implements OnInit {
     if (file.size > maxSize) {
       this.fileInput.nativeElement.value = ""
       this.MainState.setError(new Error("Размер изображения не должен превышать 500 КБ!"))
+      return
     }
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      this.imgSrc = reader.result?.toString();
-      this.value['photo'] = this.imgSrc
+      this.value = reader.result?.toString()
       this.updateEntity()
     };
   }
 
   updateEntity() {
-    if(Number(this.value[this.column]))
-      this.value[this.column]=Number(this.value[this.column])
-    this.inputUpdate.emit(this.value[this.column])
+    if(Number(this.value))
+      this.value=Number(this.value)
+    this.inputUpdate.emit({[this.column]:this.value})
   }
 
   async ngOnInit() {

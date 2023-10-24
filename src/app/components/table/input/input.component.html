@@ -2,20 +2,20 @@
   {{column}}:
 <input
   *ngIf="elementType==='input'"
-  [(ngModel)]="value[column]"
+  [(ngModel)]="value"
   [type]="getInputType(column)"
   [placeholder]="isHiddenColumn(column)?'':column"
   (ngModelChange)="updateEntity()"
   class="p-1 border" autocomplete="off" >
-<select *ngIf="elementType==='select'" [(ngModel)]="value[column]" (ngModelChange)="updateEntity()" class="p-1">
+<select *ngIf="elementType==='select'" [(ngModel)]="value" (ngModelChange)="updateEntity()" class="p-1">
   <option value="undefined">-Не выбрано-</option>
   <option *ngFor="let option of selectList, let i=index" [value]="adjacentData?adjacentData[i].code:option">{{option}}</option>
 </select>
-<div *ngIf="elementType=='file'" class="flex justify-center items-center">
-  <svg width="800px" height="800px" class="stroke-black cursor-pointer w-6 h-6 hover:scale-125 bg-opacity-50" title="Загрузить фото" (click)="openExplorer()" [ngClass]="{'bg-white':imgSrc}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15"  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path d="M12 16V3M12 3L16 7.375M12 3L8 7.375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
+<div *ngIf="elementType=='file'" class="flex justify-center items-center relative">
   <input #fileInput type="file" accept="image/png, image/jpeg" hidden="hidden" (change)="loadPhoto($event)">
-  <img [src]="imgSrc">
+  <img [src]="value">
+    <svg class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] stroke-black bg-white bg-opacity-50 cursor-pointer w-9 h-9 hover:scale-125"  (click)="openExplorer()" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15"  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path d="M12 16V3M12 3L16 7.375M12 3L8 7.375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
 </div>
 </fieldset>

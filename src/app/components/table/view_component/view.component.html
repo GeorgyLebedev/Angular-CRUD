@@ -24,11 +24,14 @@
               </svg>
             </div>
           </td>
-          <td *ngFor="let value of getValues(row)" class=" p-2" [ngClass]="{'bg-gray-100': i%2==0, 'bg-gray-200': i%2==1}">
-            <p *ngIf="!isImg(value)" [ngClass]="{'line-through': deleteRowId==row.code}">
+          <td *ngFor="let value of getValues(row)" class=" p-2" [ngClass]="{'bg-gray-100': i%2==0, 'bg-gray-200': i%2==1}" [ngSwitch]="getValueType(value)">
+            <p *ngSwitchCase="'text'" [ngClass]="{'line-through': deleteRowId==row.code}">
               {{value ? value : 'null'}}
             </p>
-            <img *ngIf="isImg(value)" [src]="value">
+            <p *ngSwitchCase="'date'" [ngClass]="{'line-through': deleteRowId==row.code}">
+              {{getNormalDate(value)}}
+            </p>
+            <img *ngSwitchCase="'img'" [src]="value">
           </td>
           <td>
             <div title="Удалить" class="border border-rose-500 rounded p-0.5 ml-1" (click)="setDeleteOptions(row.code)" [hidden]="editRow || addRow|| deleteRow">

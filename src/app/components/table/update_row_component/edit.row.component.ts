@@ -13,18 +13,21 @@ export class EditRowComponent{
   columns:string[]
 
   @Output() onEditCancel = new EventEmitter()
-
+  isSaveAvailable:boolean=false
   newData: any={}
   constructor(private HttpService: HttpService) {
   }
   updateRow(value: any) {
-    this.newData = Object.assign(this.newData, value)
+    this.newData = Object.assign(this.rowData, value)
+    this.isSaveAvailable=true
   }
   cancel(){
     this.rowData=this.newData={}
     this.onEditCancel.emit()
+    this.isSaveAvailable=false
   }
   async saveModifiedRow(){
+    console.log(this.newData)
       await this.HttpService.editRow(this.newData.code, this.newData)
     this.cancel()
   }

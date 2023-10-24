@@ -60,9 +60,16 @@
       </td>
     </tr>
   </table>
-  <button class="bg-teal-600 text-white p-2.5 w-32 self-center rounded my-2 enabled:hover:bg-teal-500 enabled:hover:font-bold enabled:hover:cursor-pointer transition-all disabled:opacity-50"
-          [disabled]="!isConditionCorrect()"
-          (click)="getDataWithCondition(params)">
-    Найти
-  </button>
+  <div class="flex flex-row justify-between">
+    <button class="bg-teal-600 text-white p-2.5 w-32 rounded my-2 enabled:hover:bg-teal-500 enabled:hover:font-bold enabled:hover:cursor-pointer transition-all disabled:opacity-50"
+            [disabled]="!isConditionCorrect()"
+            (click)="getDataWithCondition(params)">
+      Найти
+    </button>
+    <button class="bg-red-600 text-white p-2.5 w-32 rounded my-2 enabled:hover:bg-red-500 enabled:hover:font-bold enabled:hover:cursor-pointer transition-all disabled:opacity-50"
+            [disabled]="!isDataFiltered"
+            (click)="resetFilter()">
+      Сброс
+    </button>
+  </div>
 </section>

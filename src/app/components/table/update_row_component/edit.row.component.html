@@ -5,10 +5,10 @@
     </h1>
     <hr class="my-2">
     <section>
-      <input-cell *ngFor="let col of columns" [column]="col" [value]="rowData" (inputUpdate)="updateRow($event)" class="block my-3"/>
+      <input-cell *ngFor="let col of columns" [column]="col" [value]="rowData[col]" (inputUpdate)="updateRow($event)" class="block my-3"/>
     </section>
     <section class="flex justify-between">
-      <button class="bg-teal-600 text-white p-2 m-2 rounded hover:bg-teal-500 transition-all" (click)="saveModifiedRow()">Сохранить</button>
+      <button class="bg-teal-600 text-white p-2 m-2 rounded hover:bg-teal-500 transition-all" *ngIf="isSaveAvailable" (click)="saveModifiedRow()">Сохранить</button>
       <button class="bg-red-600 text-white p-2 m-2 rounded hover:bg-red-500 transition-all" (click)="cancel()" >Отмена</button>
     </section>
   </div>
